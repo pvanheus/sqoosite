@@ -6,23 +6,31 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "text:dev": "vuepress dev text",
-    "text:build": "vuepress build text"
+    "text:build": "vuepress build text",
+    "text:dev": "vuepress dev text"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.0",
     "popper.js": "^1.14.7",
-    "vue": "^2.6.6"
+    "vue": "^2.6.6",
+    "vuetify": "^2.0.0"
   },
   "devDependencies": {
+    "@mdi/font": "^3.8.95",
     "@vue/cli-plugin-babel": "^3.5.0",
     "@vue/cli-plugin-eslint": "^3.5.0",
     "@vue/cli-service": "^3.5.0",
     "babel-eslint": "^10.0.1",
+    "deepmerge": "^4.0.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.5.21"
+    "fibers": "^4.0.1",
+    "sass": "^1.22.7",
+    "sass-loader": "^7.1.0",
+    "vue-cli-plugin-vuetify": "^0.6.1",
+    "vue-template-compiler": "^2.5.21",
+    "vuetify-loader": "^1.2.2"
   },
   "eslintConfig": {
     "root": true,
@@ -43,12 +51,12 @@
       "autoprefixer": {}
     }
   },
-  "resolutions": {
-    "webpack-dev-middleware": "3.6.0"
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "resolutions": {
+    "webpack-dev-middleware": "3.6.0"
+  }
 }
