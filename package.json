@@ -14,7 +14,8 @@
     "jquery": "^3.4.0",
     "popper.js": "^1.14.7",
     "vue": "^2.6.6",
-    "vuetify": "^2.0.0"
+    "vuetify": "^2.0.0",
+    "vue-instagram": "^2.0.1"
   },
   "devDependencies": {
     "@mdi/font": "^3.8.95",

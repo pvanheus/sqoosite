@@ -1,26 +1,17 @@
 <template>
     <v-app>
-        <!--    <v-app-bar app>-->
-        <!--      <v-toolbar-title class="headline text-uppercase">-->
-        <!--        <span>Vuetify</span>-->
-        <!--        <span class="font-weight-light">MATERIAL DESIGN</span>-->
-        <!--      </v-toolbar-title>-->
-        <!--      <v-spacer></v-spacer>-->
-        <!--      <v-btn-->
-        <!--        text-->
-        <!--        href="https://github.com/vuetifyjs/vuetify/releases/latest"-->
-        <!--        target="_blank"-->
-        <!--      >-->
-        <!--        <span class="mr-2">Latest Release</span>-->
-        <!--      </v-btn>-->
-        <!--    </v-app-bar>-->
-
         <v-content>
             <v-container grid-list-md>
                 <v-layout>
-                    <v-flex v-for="i in 2" :key="`${i}`" xs6>
-                        <v-img :src="getImgUrl(image_names[i-1])" class="elevation-10" v-on:click="expandImage(i)"/>
-                    </v-flex>
+                    <vue-instagram v-if="access_key" :token="access_key">
+                        <template slot="feeds" slot-scope="props">
+                            <v-img :src="props.feed.images.low_resolution.url" alt="Image from Instagram" @click="expandImage(props.feed.images)"/>
+<!--                            <span>X: {{props.feed.images}}</span>-->
+                        </template>
+                    </vue-instagram>
+<!--                    <v-flex v-for="i in 2" :key="`${i}`" xs6>-->
+<!--                        <v-img v-bind:contain="true" :src="getImgUrl(image_names[i-1])" class="elevation-10" v-on:click="expandImage(i)"/>-->
+<!--                    </v-flex>-->
                     <!--                <v-flex xs6>-->
                     <!--                    <v-img src="./assets/artwork2.jpg" class="elevation-10" @click="expandImage"/>-->
                     <!--                </v-flex>-->
@@ -30,41 +21,47 @@
                     </v-flex>
                 </v-layout>
             </v-container>
-            <v-overlay :value="overlay">
-                <v-container grid-list-sm>
-                    <v-layout>
-                        <v-flex xs12>
-                            <v-img v-if="current" :src="getImgUrl(image_names[current-1])" @click="overlay = false" class="elevation-10" />
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </v-overlay>
 
         </v-content>
+        <v-overlay :value="overlay">
+            <v-container grid-list-sm fluid>
+                <v-layout>
+                    <v-flex xs12>
+                        <v-img v-if="current" v-bind:contain="true" :src="current.standard_resolution.url" @click="overlay = false" class="elevation-10" />
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-overlay>
+
     </v-app>
 </template>
 
 <script>
+    import VueInstagram from 'vue-instagram';
 
     // const images = require.context('@/assets/img/covers', false, /\.png$|\.jpg$/)
+
+    const access_key = require('./assets/access-token').key;
 
     export default {
         name: 'App',
         components: {
+            VueInstagram
         },
         data: () => ({
             overlay: false,
             current: null,
-            image_names: ['artwork.jpg', 'artwork2.jpg']
+            image_names: ['artwork.jpg', 'artwork2.jpg'],
+            access_key: access_key
         }),
         methods: {
-            expandImage: function (num) {
+            expandImage: function (image) {
                 this.overlay = true
-                this.current = num;
+                this.current = image;
             },
             getImgUrl(pic) {
                 return require('./assets/'+pic)
             }
-        }
+        },
     };
 </script>
